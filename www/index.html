@@ -1,268 +1,67 @@
 <!DOCTYPE html>
+
 <html lang="en">
-	<head>
-		<title>On Location</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<link type="text/css" rel="stylesheet" href="css/jquery-mobile-1.0/jquery.mobile.css" />
-		<link type="text/css" rel="stylesheet" href="css/mobile.css" />
-		<script type="text/javascript" src="js/modernizr-2.0.6/modernizr.min.js"></script>
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script> 
-		<script type="text/javascript" src="js/jquery-1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="js/jquery-mobile-1.0/jquery.mobile.min.js"></script>
-		<script type="text/javascript" src="js/jquery.ui-1.8.15/jquery.ui.autocomplete.min.js"></script>
-		<script type="text/javascript" src="js/demo.js"></script>
-		<script type="text/javascript" src="ui/jquery.ui.map.js"></script>
-		<script type="text/javascript" src="ui/jquery.ui.map.services.js"></script>
-		<script type="text/javascript" src="ui/jquery.ui.map.extensions.js"></script>
-		<script type="text/javascript">
+<head>
+  <title>On Location</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <link href="css/jquery-mobile-1.0/jquery.mobile.css" rel="stylesheet" type="text/css">
+  <link href="css/mobile.css" rel="stylesheet" type="text/css">
+  <link href="css/onlocation.css" rel="stylesheet" type="text/css">
+  <script src="js/modernizr-2.0.6/modernizr.min.js" type="text/javascript"></script>
+  <script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script>
+  <script src="js/jquery-1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="js/jquery-mobile-1.0/jquery.mobile.min.js" type="text/javascript"></script>
+  <script src="js/jquery.ui-1.8.15/jquery.ui.autocomplete.min.js" type="text/javascript"></script>
+  <script src="js/demo.js" type="text/javascript"></script>
+  <script src="ui/jquery.ui.map.js" type="text/javascript"></script>
+  <script src="ui/jquery.ui.map.services.js" type="text/javascript"></script>
+  <script src="ui/jquery.ui.map.extensions.js" type="text/javascript"></script>
+  <script src="js/onlocation.js" type="text/javascript"></script>
+</head>
 
-      var mobileSettings = { 'center': '34.0983425, -118.3267434', 'zoom': 10 }; // Default to Hollywood, CA when no geolocation support
-			
-			////////////////////////////////////////////////////////////
-			
-			$('#places').live('pageinit', function() {
-				demo.add('places_1', function() {
-					$('#map_canvas').gmap({'center': mobileSettings.center, 'zoom': 10, 'disableDefaultUI':false, mapTypeControl: false, panControl: false, streetViewControl: false, zoomControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM },'callback': function() {
+<body>
+  <div data-role="page" id="places">
+    <div data-role="content">
 
-            // map current position from client lat/long
-						var self = this;
-						self.getCurrentPosition(function(position, status) {
-							if ( status === 'OK' ) {
-								self.set('clientPosition', new google.maps.LatLng(position.coords.latitude, position.coords.longitude) );
-                self.set('bounds', null);
-								self.addMarker({
-                  'position': self.get('clientPosition'),
-                  'bounds': null
-                });
-							}
-              // fetch locations
-              var lat1 = position.coords.latitude;
-              var lon1 = position.coords.longitude;
-              var radius = 5;
-              getLocations(lat1,lon1,radius);
-						});
+      <div id="container">
+        <div id="overlay">
+        <div class="left">
+          <h1 class="location"><!-- location --></h1>
 
-            // map search results from user input
-						var control = self.get('control', function() {
-							$(self.el).append('<div id="control"><div><h1 class="logo"><span class="name">On Location</span></h1><input id="places-search" class="ui-bar-d ui-input-text ui-body-null ui-shadow-inset ui-body-d ui-autocomplete-input" type="text" placeholder="Lights. Camera. Search!" /></div></div>');
-							self.autocomplete($('#places-search')[0], function(ui) {
-								//self.clear('markers');
-								self.set('bounds', null);
-								self.placesSearch({ 'location': ui.item.position, 'radius': '5000' }, function(results, status) {
-									if ( status === 'OK' ) {
-                    // fetch locations
-                    var lat1 = ui.item.position["k"];
-                    var lon1 = ui.item.position["A"];
-                    var radius = 5;
-                    getLocations(lat1,lon1,radius);
-									}
-								});
-							});
-							return $('#control')[0];
-						});
+          <div class="count">
+            <a href="#"><span class="movie-count"><!-- moviecount --></span>Movies</a><a href="#"><span class="video-count"><!-- moviecount --></span>Videos</a>
+          </div>
+        </div><img class="streetview" src="" ></div>
+      </div>
 
-            // fetch location data and build markers
-            function getLocations (lat1,lon1,radius) {
-              $.getJSON( 'json/locations.json?cb=2344', function(data) { 
-                $.each( data.markers, function(i, marker) {
-                  if ( distance(lat1,lon1,marker.latitude,marker.longitude,'M') < radius ) {
-                    self.addMarker({
-                      'position': new google.maps.LatLng( marker.latitude, marker.longitude ),
-                      'bounds':true,
-                      'icon': 'images/marker.png',
-                      'title': marker.address
-                    }).click(function() {
-                      // Iterate through movies and videos    
-                      var moviecount = 0;
-                      var videocount = 0;
-                      var images = '';
-                      $.each(marker.movies, function(i, movie) {
-                        if ( movie.image === true ) {
-                          images += '<li><a href="#" /><img src="'+movie.image+'" class="thumb" /></a></li>';
-                        }
-                        moviecount++
-                      });
-                      $.each(marker.videos, function(i, video) {
-                        videocount++
-                      });
-                      var content = '<h2 class="location"><a href="#">' + marker.address + '</a></h2>'+
-                        '<div class="count">'+
-                        '<a href="#"><span class="movie-count">'+moviecount+' Movies</span></a>'+
-                        '<a href="#"><span class="video-count">'+videocount+' Videos</span></a>'+
-                        '</div>'+
-                        '<ul class="thumbs">' + images + '</ul>';
-                      self.openInfoWindow({ 'content': content }, this);
-                    });
-                  }
-                });
-              });
-            }
+      <div id="map_canvas" style="width:100%;height:100%;padding:0;margin:0;">
+        <!-- map loads here... -->
+      </div>
 
-						self.addControl(new control(), 1);
-					}});					
-				}).load('places_1');
-			});
-
-      // Calculate distance between two points (http://www.geodatasource.com/developers/javascript)
-      // lat1, lon1 = Latitude and Longitude of point 1 (in decimal degrees)
-      // lat2, lon2 = Latitude and Longitude of point 2 (in decimal degrees)
-      // unit = ( M = statute miles, K = kilometers, N = nautical miles )
-      function distance(lat1, lon1, lat2, lon2, unit) {
-        var radlat1 = Math.PI * lat1/180
-        var radlat2 = Math.PI * lat2/180
-        var radlon1 = Math.PI * lon1/180
-        var radlon2 = Math.PI * lon2/180
-        var theta = lon1-lon2
-        var radtheta = Math.PI * theta/180
-        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-        dist = Math.acos(dist)
-        dist = dist * 180/Math.PI
-        dist = dist * 60 * 1.1515
-        if (unit=="K") { dist = dist * 1.609344 }
-        if (unit=="N") { dist = dist * 0.8684 }
-        return dist
-      }
-
-		</script>
-
-	<style>
-		html, body {
-			height: 100%;
-		}
-		#places {
-			height: 100%;
-		}
-		#places .ui-content {
-			position: fixed;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-		}
-		.ui-autocomplete {
-			background-color: #fff;
-			opacity: 0.9;
-			font-family: sans-serif;
-			color: #333;
-			width: 255px;
-			font-size: 13px;
-			font-weight: 100;
-			list-style: none outside none;
-			padding: 5px 15px;
-		}
-		.ui-autocomplete li {
-			height: 13px;
-			overflow: hidden;
-			padding: 5px 5px 5px 20px;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			background: url('images/search.png') left center no-repeat;
-		}
-    .ui-corner-all {
-      border-radius: 0;
-    }
-    .ui-corner-top {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-    #control {
-      background-color: #a3d9bc;
-      height: 60px;
-    }
-    #places-search {
-      box-shadow: none;
-      font-size: 14px;
-      height: 25px;
-      width: 255px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 11px;
-    }
-    h1.logo {
-      background: url("images/logo.png") no-repeat scroll 1px 3px rgba(0, 0, 0, 0);
-      color: #FFFFFF;
-      font-family: sans-serif;
-      font-weight: 100;
-      left: 9px;
-      padding: 26px 0 0 35px;
-      position: absolute;
-      text-shadow: none;
-      top: -10px;
-      display: block;
-      height: 21px;
-    }
-    h2.location {
-      font-size: 12px;
-      font-weight: normal;
-      text-decoration: underline;
-    }
-    h2.location a {
-      color: #000;
-    }
-    .count {
-      color: #000;
-      text-decoration: none;
-    }
-    .count a {
-      color: #000;
-      text-decoration: none;
-    }
-    span.movie-count {
-      background: url('images/movie-icon.png') left center no-repeat;
-      padding-left: 25px;
-      padding-right: 10px;
-      line-height: 22px;
-      display: inline-block;      
-    }
-    span.video-count {
-      background: url('images/video-icon.png') left center no-repeat;
-      padding-left: 25px;
-      padding-right: 10px;
-      line-height: 22px;
-      display: inline-block;
-    }
-    ul.thumbs {
-      list-style: none outside none;
-      margin: 0;
-      padding: 10px 0 0;
-    }
-    ul.thumbs li {
-      display: inline-block;
-      padding-right: 10px;
-    }
-    img.thumb {
-      width: 75px;
-    }
-
-    @media screen and (max-width: 568px) {
-
-      h1.logo span.name {
-        display: none;
-      }
-
-      #places-search {
-        box-shadow: none;
-        font-size: 14px;
-        height: 25px;
-        margin-left: 50px;
-        margin-right: 10px;
-        margin-top: 11px;
-        width: 215px;
-      }    
-
-    }
-
-	</style>
-	</head>
-	<body>
-		<div id="places" data-role="page">
-			<div data-role="content">
-				<div id="map_canvas" style="width:100%;height:100%;padding:0;margin:0;">
-					<!-- map loads here... -->
-				</div>
-			</div>
-		</div>
-
-	</body>
+      <div id="control">
+        <div>
+          <h1 class="logo" style="display:none;"><span class="name">On Location</span></h1>
+          <input class="ui-bar-d ui-input-text ui-body-null ui-shadow-inset ui-body-d ui-autocomplete-input" id="places-search" placeholder="Lights. Camera. Search!" type="text">
+        </div>
+      </div>      
+      
+      <div id="details">
+        <div id="movies">
+          <ul>
+            <!-- movies -->
+          </ul>
+        </div>
+        <div id="videos">
+          <ul>
+            <!-- videos -->
+          </ul>
+          <video width="640" height="480" controls>
+            <source src="http://www.totaleclips.com/Player/Bounce.aspx?eclipid=e68378&bitrateid=472&vendorid=102&type=.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div><!-- /page -->
+</body>
 </html>
