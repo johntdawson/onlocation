@@ -224,7 +224,7 @@ img.thumb {
 
 #details {
   border: 1px solid #999;
-  height: 60%;
+  height: 200px;
   padding: 0px;
   background-color: #fff;
   overflow-y: scroll; /* has to be scroll, not auto */
@@ -235,16 +235,12 @@ img.thumb {
 #movies {
   margin: 0;
   padding: 0;
-  -webkit-overflow-scrolling: touch;
-  -webkit-transform: translate3d(0px,0px,0px);
 }
 
 #movies ul {
   list-style: none outside none;
   margin: 0;
   padding: 0;
-  -webkit-overflow-scrolling: touch;
-  -webkit-transform: translate3d(0px,0px,0px);
 }
 
 #movies ul li {
