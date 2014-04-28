@@ -13,6 +13,7 @@ html,body {
   bottom: 0;
   left: 0;
   padding: 0;
+  overflow:hidden;
 }
 
 .ui-autocomplete {
@@ -97,6 +98,7 @@ h1.logo {
   top: -10px;
   display: block;
   height: 21px;
+  cursor: pointer;
 }
 
 h1.location,h2.location {
@@ -226,7 +228,7 @@ img.thumb {
   border: 1px solid #999;
   height: 60%;
   padding: 0px;
-  background-color: yellow;
+  background-color: #fff;
   overflow-y: scroll; /* has to be scroll, not auto */
   -webkit-overflow-scrolling: touch;
   -webkit-transform: translate3d(0px,0px,0px);
