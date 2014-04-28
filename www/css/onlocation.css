@@ -226,8 +226,10 @@ img.thumb {
   border: 1px solid #999;
   height: 60%;
   padding: 0px;
-  overflow: scroll;
-  background-color: #fff;
+  background-color: yellow;
+  overflow-y: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translate3d(0px,0px,0px);
 }
 
 #movies {
