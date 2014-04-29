@@ -168,6 +168,7 @@ $('#container').live('click', function() {
   //$('#videos').show();
 //});
 
+
 // Calculate distance between two points based on Haversine formula
  // http://www.geodatasource.com/developers/javascript
  // lat1, lon1 = Latitude and Longitude of point 1 (in decimal degrees)

@@ -153,6 +153,11 @@ $('h2.location a').live('click', function() {
   $('#container').fadeIn();
 });
 
+$('h1.logo').live('click', function() {
+  location.reload();
+});
+
+
 $('#container').live('click', function() {
   $(this).fadeOut();
   $('#map_canvas').css('height', '100%');
@@ -162,6 +167,7 @@ $('#container').live('click', function() {
   //$('#movies').hide();
   //$('#videos').show();
 //});
+
 
 // Calculate distance between two points based on Haversine formula
  // http://www.geodatasource.com/developers/javascript
