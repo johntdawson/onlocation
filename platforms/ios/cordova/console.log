@@ -82,3 +82,16 @@ Terminating in response to SpringBoard's termination.
 2014-04-29 08:39:39.972 OnLocation[91118:90b] Resetting plugins due to page load.
 2014-04-29 08:39:41.125 OnLocation[91118:90b] Finished load of: file:///Users/johndawson/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D2927A38-DCD0-474F-A892-373ABB8EA0EA/OnLocation.app/www/index.html
 Terminating in response to SpringBoard's termination.
+2014-04-29 08:56:11.922 OnLocation[92014:90b] Multi-tasking -> Device: YES, App: YES
+2014-04-29 08:56:11.939 OnLocation[92014:90b] Unlimited access to network resources
+2014-04-29 08:56:11.990 OnLocation[92014:90b] [CDVTimer][statusbar] 15.670002ms
+2014-04-29 08:56:11.997 OnLocation[92014:90b] [CDVTimer][TotalPluginStartup] 22.727966ms
+2014-04-29 08:56:12.359 OnLocation[92014:90b] Resetting plugins due to page load.
+2014-04-29 08:56:16.207 OnLocation[92014:90b] Finished load of: file:///Users/johndawson/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D2927A38-DCD0-474F-A892-373ABB8EA0EA/OnLocation.app/www/index.html
+Terminating in response to SpringBoard's termination.
+2014-04-29 09:11:59.330 OnLocation[92724:90b] Multi-tasking -> Device: YES, App: YES
+2014-04-29 09:11:59.343 OnLocation[92724:90b] Unlimited access to network resources
+2014-04-29 09:11:59.399 OnLocation[92724:90b] [CDVTimer][statusbar] 25.647044ms
+2014-04-29 09:11:59.402 OnLocation[92724:90b] [CDVTimer][TotalPluginStartup] 28.631032ms
+2014-04-29 09:11:59.625 OnLocation[92724:90b] Resetting plugins due to page load.
+2014-04-29 09:12:01.379 OnLocation[92724:90b] Finished load of: file:///Users/johndawson/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D2927A38-DCD0-474F-A892-373ABB8EA0EA/OnLocation.app/www/index.html
