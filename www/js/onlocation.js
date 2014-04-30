@@ -163,6 +163,10 @@ $('#container').live('click', function() {
   $('#map_canvas').css('height', '100%');
 });
 
+if(navigator.userAgent.match(/iP[ha][od].*OS 7/)) {
+  document.write('<style type="text/css">#places .ui-content{padding-top:20px;}</style>');
+}
+
 //$('#movies p.video').live('click', function() {
   //$('#movies').hide();
   //$('#videos').show();

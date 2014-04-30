@@ -14,7 +14,7 @@ html,body {
   left: 0;
   padding: 0;
   overflow:hidden;
-  padding-top:20px;
+  /*padding-top:20px;*/
 }
 
 .ui-autocomplete {
@@ -24,7 +24,7 @@ html,body {
   color: #333;
   width: 255px;
   font-size: 13px;
-  font-weight: 100;
+  font-weight: 100; 
   list-style: none outside none;
   padding: 0;
   z-index: 999 !important;
@@ -157,7 +157,7 @@ ul.thumbs li.placeholder {
   background: url("../images/placeholder.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
   display: inline-block;
   float: left;
-  height: 111px;
+  height: 115px;
   margin-right: 10px;
   overflow: hidden;
   text-align: center;
