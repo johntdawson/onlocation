@@ -85,6 +85,11 @@ li.ui-menu-item a {
   margin-right: auto;
   margin-top: 11px;
   z-index: 1500;
+  background-color: #FFFFFF;
+}
+
+.loading {
+  background: url(../images/ajax-loader.gif) no-repeat scroll top 9px right 6px #FFFFFF !important;
 }
 
 h1.logo {

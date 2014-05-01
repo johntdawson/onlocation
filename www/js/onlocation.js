@@ -5,8 +5,9 @@ var mobileSettings = {
 
 ////////////////////////////////////////////////////////////
 $('#places').live('pageinit', function() {
-  // Reset search input  
+  // Reset search input
   $('#places-search').val('');
+  $('#places-search').removeClass('loading');
   $('.logo').delay(3000).fadeIn('slow');
   // gmap
   demo.add('places_1', function() {
@@ -70,6 +71,7 @@ $('#places').live('pageinit', function() {
           });
           //var onlocationAPI = 'http://localhost/onlocation/api/?jsoncallback=?';
           var onlocationAPI = 'http://www.dawsoninteractive.com/onlocation/api/?jsoncallback=?';
+          $('#places-search').addClass('loading');
           $.getJSON(onlocationAPI, {
             method: "get_markers",
             latitude: lat1,
@@ -107,6 +109,7 @@ $('#places').live('pageinit', function() {
                 });
               //}
             });
+            $('#places-search').removeClass('loading');
           });
         }
         self.addControl(new control(), 1);
